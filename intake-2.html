@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Intake — Awwab Fitness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #14171F;
+    --paper: #F7F5F1;
+    --amber: #C9791E;
+    --slate: #5B5F6B;
+    --line: #DEDAD1;
+    --white: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', -apple-system, sans-serif;
+    line-height: 1.5;
+  }
+
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  header {
+    margin-bottom: 40px;
+  }
+
+  .eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    color: var(--amber);
+    margin: 0 0 6px;
+  }
+
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 1.05;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+
+  header p {
+    color: var(--slate);
+    font-size: 16px;
+    max-width: 46ch;
+    margin: 0;
+  }
+
+  .section {
+    border-top: 1px solid var(--line);
+    padding: 32px 0;
+  }
+
+  .section:last-of-type {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section-number {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--amber);
+    margin: 0 0 4px;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    margin: 0 0 24px;
+  }
+
+  .field {
+    margin-bottom: 22px;
+  }
+
+  .field:last-child {
+    margin-bottom: 0;
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  .hint {
+    display: block;
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--slate);
+    margin-top: 4px;
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--white);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+  }
+
+  textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: 2px solid var(--amber);
+    outline-offset: 1px;
+    border-color: var(--amber);
+  }
+
+  .choices {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .choice {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--white);
+    cursor: pointer;
+  }
+
+  .choice:has(input:checked) {
+    border-color: var(--amber);
+    background: #FBF2E7;
+  }
+
+  .choice input {
+    accent-color: var(--amber);
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .choice span {
+    font-size: 15px;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    background: var(--ink);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    padding: 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.02em;
+    margin-top: 36px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  button[type="submit"]:hover {
+    background: #2A2E3A;
+  }
+
+  .required {
+    color: var(--amber);
+  }
+
+  #confirmation {
+    display: none;
+    text-align: center;
+    padding: 64px 24px;
+  }
+
+  #confirmation h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  #confirmation p {
+    color: var(--slate);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap" id="formView">
+  <header>
+    <p class="eyebrow">Awwab Fitness</p>
+    <h1>Let's get to know you</h1>
+    <p>Fill this out before our first session so I can build a plan that actually fits your life — not a generic template.</p>
+  </header>
+
+  <form id="intakeForm" action="https://formspree.io/f/meaqkylp" method="POST">
+
+    <div class="section">
+      <p class="section-number">01</p>
+      <h2 class="section-title">The basics</h2>
+
+      <div class="field">
+        <label for="name">Full name <span class="required">*</span></label>
+        <input type="text" id="name" name="Full Name" required>
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone number <span class="required">*</span></label>
+        <input type="tel" id="phone" name="Phone Number" required>
+      </div>
+
+      <div class="field">
+        <label for="age">Age <span class="required">*</span></label>
+        <input type="number" id="age" name="Age" min="10" max="100" required>
+      </div>
+
+      <div class="field">
+        <label for="occupation">Occupation</label>
+        <input type="text" id="occupation" name="Occupation">
+      </div>
+    </div>
+
+    <div class="section">
+      <p class="section-number">02</p>
+      <h2 class="section-title">Your goal</h2>
+
+      <div class="field">
+        <label>Main fitness goal <span class="required">*</span></label>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="Main Goal" value="Weight loss" required><span>Weight loss</span></label>
+          <label class="choice"><input type="radio" name="Main Goal" value="Weight gain" required><span>Weight gain</span></label>
+          <label class="choice"><input type="radio" name="Main Goal" value="General health" required><span>General health</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="success">What does success look like to you in 3 months?</label>
+        <textarea id="success" name="3-Month Success"></textarea>
+      </div>
+    </div>
+
+    <div class="section">
+      <p class="section-number">03</p>
+      <h2 class="section-title">History & health</h2>
+
+      <div class="field">
+        <label for="injuries">Any current or past injuries I should know about?</label>
+        <textarea id="injuries" name="Injuries"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="medical">Any medical conditions or medications that affect exercise?</label>
+        <textarea id="medical" name="Medical Conditions"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="pastcoach">Worked with a coach or trainer before? What worked or didn't?</label>
+        <textarea id="pastcoach" name="Past Coaching Experience"></textarea>
+      </div>
+    </div>
+
+    <div class="section">
+      <p class="section-number">04</p>
+      <h2 class="section-title">Logistics</h2>
+
+      <div class="field">
+        <label for="availability">Days/times you're generally available to train</label>
+        <textarea id="availability" name="Availability"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Equipment access</label>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="Equipment Access" value="Full gym access"><span>Full gym access</span></label>
+          <label class="choice"><input type="radio" name="Equipment Access" value="Home equipment"><span>Home equipment</span></label>
+          <label class="choice"><input type="radio" name="Equipment Access" value="Neither"><span>Neither</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Can you comfortably budget for groceries tailored to your goal?
+          <span class="hint">This helps me build a nutrition plan you can actually afford to follow.</span>
+        </label>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="Grocery Budget" value="Yes"><span>Yes</span></label>
+          <label class="choice"><input type="radio" name="Grocery Budget" value="Somewhat"><span>Somewhat</span></label>
+          <label class="choice"><input type="radio" name="Grocery Budget" value="No"><span>No</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="dietary">Any dietary restrictions or preferences?</label>
+        <textarea id="dietary" name="Dietary Restrictions"></textarea>
+      </div>
+    </div>
+
+    <div class="section">
+      <p class="section-number">05</p>
+      <h2 class="section-title">Accountability</h2>
+
+      <div class="field">
+        <label>How do you like to be motivated?</label>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="Motivation Style" value="Direct / tough love"><span>Direct / tough love</span></label>
+          <label class="choice"><input type="radio" name="Motivation Style" value="Encouraging"><span>Encouraging</span></label>
+          <label class="choice"><input type="radio" name="Motivation Style" value="Mix of both"><span>Mix of both</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="other">Anything else I should know about you?</label>
+        <textarea id="other" name="Other Notes"></textarea>
+      </div>
+    </div>
+
+    <button type="submit">Send intake form</button>
+  </form>
+</div>
+
+<div id="confirmation">
+  <h2>You're all set</h2>
+  <p>Thanks — I've got your intake and I'll be in touch before our first session.</p>
+</div>
+
+<script>
+  const form = document.getElementById('intakeForm');
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const data = new FormData(form);
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        document.getElementById('formView').style.display = 'none';
+        document.getElementById('confirmation').style.display = 'block';
+      } else {
+        alert('Something went wrong submitting the form. Please try again or contact your coach directly.');
+      }
+    } catch (err) {
+      alert('Something went wrong submitting the form. Please try again or contact your coach directly.');
+    }
+  });
+</script>
+
+</body>
+</html>
