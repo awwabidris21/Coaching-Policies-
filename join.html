@@ -28,6 +28,7 @@
   .btn.alt { background:var(--white); color:var(--ink); border:1px solid var(--line); }
   .row { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
   ul.check { list-style:none; padding:0; margin:0; } ul.check li { padding:9px 0 9px 30px; border-bottom:1px solid var(--line); position:relative; } ul.check li:before { content:""; position:absolute; left:2px; top:15px; width:14px; height:8px; border-left:3px solid var(--amber); border-bottom:3px solid var(--amber); transform:rotate(-45deg); }
+  ul.check.nope li:before { border:0; transform:none; content:"\00d7"; color:var(--slate); font-size:22px; line-height:1; width:auto; height:auto; top:8px; left:4px; font-weight:700; }
   .steps { counter-reset:s; } .step { display:flex; gap:14px; background:var(--white); border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:10px 0; } .step:before { counter-increment:s; content:counter(s); flex:0 0 30px; height:30px; border-radius:50%; background:var(--amber); color:#fff; font-weight:700; display:grid; place-items:center; font-family:'Barlow Condensed',sans-serif; font-size:18px; }
   .step b { display:block; } .step span { color:var(--slate); font-size:15px; }
   details { background:var(--white); border:1px solid var(--line); border-radius:10px; padding:12px 16px; margin:10px 0; } summary { font-weight:600; cursor:pointer; } details p { color:var(--slate); margin:8px 0 0; font-size:15px; }
@@ -70,7 +71,7 @@
 <div class="wrap">
   <img class="brandimg" src="logo-wordmark-light.png" alt="Awwab Fitness"><p class="eyebrow" style="display:none">Awwab Fitness</p>
   <h1>Accountability<br>you can see.</h1>
-  <p class="lede">A 12-week coaching program with an app where you log your day and your coach sees it. Training, nutrition, check-ins, and someone who actually looks at your data.</p>
+  <p class="lede">A 12-week coaching program for people who want to get lean and don't know where to start. You log your day in an app, and your coach actually looks at it.</p>
 
   <div id="banner" class="banner"></div>
 
@@ -94,6 +95,20 @@
     </form>
   </div>
   <div id="waitlistDone"><b>You're on the list.</b> I'll message you when the next group opens.</div>
+
+  <h2>Is this for you?</h2>
+  <p>I built this because it's what I needed when I started. I had no direction, and it took me almost two years to figure out the training and nutrition that actually work. I'd rather hand you that in 12 weeks.</p>
+  <p><b>This is for you if:</b></p>
+  <ul class="check">
+    <li>You want to look lean and fit, and you're not sure what to do. Skinny, overweight, or somewhere in between, it doesn't matter.</li>
+    <li>You want to keep living your normal life and make a few small, intentional changes that actually work.</li>
+    <li>You'll log honestly and follow the plan. You don't need any experience.</li>
+  </ul>
+  <p><b>This is not for you if:</b></p>
+  <ul class="check nope">
+    <li>You're chasing a ripped, 10 to 11% body fat look or training for a show. That's not what I coach.</li>
+    <li>You want a plan with no tracking and no check-ins.</li>
+  </ul>
 
   <h2>What you get</h2>
   <ul class="check">
@@ -120,7 +135,7 @@
   </div>
 
   <h2>Questions</h2>
-  <details><summary>Who is this for?</summary><p>Anyone who wants to lose weight, gain weight or muscle, or recomp, and is willing to log honestly. You don't need to be experienced.</p></details>
+  <details><summary>Who is this for?</summary><p>Anyone who wants to get lean and fit and doesn't know where to start, whether that means losing fat, building muscle, or both. No experience needed, just a willingness to log honestly. It isn't built for people chasing a very low body fat (10 to 11%) or competing.</p></details>
   <details><summary>Do I need a gym?</summary><p>Your training is built around what you have access to. Tell me your equipment on the form.</p></details>
   <details><summary>How do I pay?</summary><p>After our call I'll send secure payment details (card, or Zelle). You pay once, at signup.</p></details>
   <details><summary>Is my data private?</summary><p>Only you and I can see it. Photos are private and nothing of yours is ever posted without your written permission. See the <a href="privacy.html">Privacy Policy</a>.</p></details>
