@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Client Intake — Awwab Fitness</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #14171F;
@@ -206,18 +206,33 @@
   #confirmation p {
     color: var(--slate);
   }
+
+  /* ---- Awwab Fitness design v2 (matches the app) ---- */
+  body { font-family:'Hanken Grotesk',-apple-system,sans-serif !important; -webkit-font-smoothing:antialiased; }
+  h1, h2, h3 { font-family:'Fraunces',Georgia,serif !important; font-weight:600 !important; letter-spacing:-.015em !important; }
+  h1 { font-size:40px !important; line-height:1.06 !important; }
+  h2 { font-size:25px !important; }
+  .eyebrow, .brandimg + .eyebrow { font-family:'Cinzel',Georgia,serif !important; font-weight:700 !important; font-size:11px !important; letter-spacing:.2em !important; text-transform:uppercase; }
+  .brandimg { display:block; height:46px; width:auto; margin:0 0 26px; }
+  .btn, button.btn, button[type=submit] { border-radius:3px !important; text-transform:uppercase; letter-spacing:.1em; font-size:13px !important; font-weight:700 !important; }
+  .price, .step, details, .banner, #waitlist, #waitlistDone, input, select, textarea { border-radius:5px !important; }
+  .price .amt, .amt { font-family:'Fraunces',Georgia,serif !important; font-weight:600 !important; font-size:56px !important; letter-spacing:-.03em; }
+  .banner { font-size:15px; }
 </style>
 </head>
 <body>
 
 <div class="wrap" id="formView">
   <header>
-    <p class="eyebrow">Awwab Fitness</p>
+    <img class="brandimg" src="logo-wordmark-light.png" alt="Awwab Fitness"><p class="eyebrow" style="display:none">Awwab Fitness</p>
     <h1>Let's get to know you</h1>
     <p>Fill this out before our first session so I can build a plan that actually fits your life — not a generic template.</p>
   </header>
 
   <form id="intakeForm" action="https://formspree.io/f/meaqkylp" method="POST">
+    <input type="hidden" name="Form Type" value="Intake">
+    <input type="hidden" id="refCode" name="Referral Code" value="">
+    <input type="hidden" id="refName" name="Referred By (from link)" value="">
 
     <div class="section">
       <p class="section-number">01</p>
@@ -337,16 +352,45 @@
       </div>
     </div>
 
+    <div class="section">
+      <p class="section-number">09</p>
+      <h2 class="section-title">A couple of last things</h2>
+
+      <div class="field">
+        <label for="heard">How did you hear about Awwab Fitness? <span class="required">*</span></label>
+        <input type="text" id="heard" name="How They Heard" placeholder="Instagram, a friend, in person..." required>
+      </div>
+
+      <div class="field">
+        <label for="referrer">Did someone refer you? Who? <span class="hint">(optional)</span></label>
+        <input type="text" id="referrer" name="Referred By (typed)" placeholder="Name of the person who sent you">
+      </div>
+
+      <div class="field">
+        <label class="choice"><input type="checkbox" name="Agreed to Terms and Privacy" value="Yes" required><span>I have read and agree to the <a href="terms.html" target="_blank">Terms of Service</a> and <a href="privacy.html" target="_blank">Privacy Policy</a>, including receiving text messages (reply STOP any time). <span class="required">*</span></span></label>
+      </div>
+    </div>
+
     <button type="submit">Send intake form</button>
   </form>
 </div>
 
 <div id="confirmation">
   <h2>You're all set</h2>
-  <p>Thanks — I've got your intake and I'll be in touch before our first session.</p>
+  <p>Thanks, I've got your intake. I'll message you to set up a short call. Your spot is confirmed once payment is received and the terms are agreed.</p>
 </div>
 
 <script>
+  // Referral links look like intake.html?ref=abubakr. Only known referrers are recorded.
+  const REFERRERS = { abubakr: 'Abu Bakr', alazar: 'Alazar' };
+  (function () {
+    const ref = (new URLSearchParams(location.search).get('ref') || '').toLowerCase();
+    if (REFERRERS[ref]) {
+      document.getElementById('refCode').value = ref;
+      document.getElementById('refName').value = REFERRERS[ref];
+      const typed = document.getElementById('referrer'); if (typed && !typed.value) typed.value = REFERRERS[ref];
+    }
+  })();
   const form = document.getElementById('intakeForm');
   form.addEventListener('submit', async function (e) {
     e.preventDefault();

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Awwab Fitness</title>
+<meta name="description" content="A 12-week coaching program with an app where you log your day and your coach sees it. Limited spots.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#14171F; --paper:#F7F5F1; --amber:#C9791E; --slate:#5B5F6B; --line:#DEDAD1; --white:#FFFFFF; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:'Work Sans',-apple-system,sans-serif; line-height:1.6; }
+  .wrap { max-width:680px; margin:0 auto; padding:44px 22px 96px; }
+  .eyebrow { font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:15px; letter-spacing:.02em; color:var(--amber); margin:0 0 6px; }
+  h1 { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:46px; line-height:1.02; margin:0 0 14px; letter-spacing:-.01em; }
+  h2 { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:28px; margin:42px 0 10px; }
+  .lede { color:var(--slate); font-size:18px; margin:0 0 22px; max-width:56ch; }
+  .banner { border-radius:10px; padding:14px 18px; font-weight:600; margin:0 0 20px; background:var(--ink); color:var(--paper); }
+  .banner.early { background:var(--amber); color:#fff; }
+  .banner.closed { background:#fff; color:var(--ink); border:1px solid var(--line); }
+  .price { background:var(--white); border:1px solid var(--line); border-radius:12px; padding:22px; margin:0 0 20px; }
+  .price .amt { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:64px; line-height:1; }
+  .price .was { color:var(--slate); text-decoration:line-through; font-size:20px; margin-left:8px; }
+  .price .sub { color:var(--slate); font-size:15px; margin-top:4px; }
+  .ref { color:var(--amber); font-weight:600; margin-bottom:6px; }
+  .btn { display:inline-block; background:var(--ink); color:var(--paper); border:0; padding:15px 26px; border-radius:8px; text-decoration:none; font:inherit; font-weight:600; font-size:17px; cursor:pointer; }
+  .btn.alt { background:var(--white); color:var(--ink); border:1px solid var(--line); }
+  .row { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  ul.check { list-style:none; padding:0; margin:0; } ul.check li { padding:9px 0 9px 30px; border-bottom:1px solid var(--line); position:relative; } ul.check li:before { content:""; position:absolute; left:2px; top:15px; width:14px; height:8px; border-left:3px solid var(--amber); border-bottom:3px solid var(--amber); transform:rotate(-45deg); }
+  .steps { counter-reset:s; } .step { display:flex; gap:14px; background:var(--white); border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:10px 0; } .step:before { counter-increment:s; content:counter(s); flex:0 0 30px; height:30px; border-radius:50%; background:var(--amber); color:#fff; font-weight:700; display:grid; place-items:center; font-family:'Barlow Condensed',sans-serif; font-size:18px; }
+  .step b { display:block; } .step span { color:var(--slate); font-size:15px; }
+  details { background:var(--white); border:1px solid var(--line); border-radius:10px; padding:12px 16px; margin:10px 0; } summary { font-weight:600; cursor:pointer; } details p { color:var(--slate); margin:8px 0 0; font-size:15px; }
+  .field { margin:12px 0; } label { display:block; font-weight:600; font-size:14px; margin-bottom:4px; }
+  input[type=text], input[type=tel], input[type=email], select { width:100%; font:inherit; font-size:16px; padding:12px 14px; border:1px solid var(--line); border-radius:8px; background:var(--white); color:var(--ink); }
+  #waitlist { display:none; background:var(--white); border:1px solid var(--line); border-radius:12px; padding:20px; margin-top:8px; }
+  #waitlistDone { display:none; background:#FBF2E7; border-left:3px solid var(--amber); padding:14px 18px; border-radius:4px; }
+  .fine { color:var(--slate); font-size:13px; margin-top:34px; } a { color:var(--amber); }
+
+  /* ---- Awwab Fitness design v2 (matches the app) ---- */
+  body { font-family:'Hanken Grotesk',-apple-system,sans-serif !important; -webkit-font-smoothing:antialiased; }
+  h1, h2, h3 { font-family:'Fraunces',Georgia,serif !important; font-weight:600 !important; letter-spacing:-.015em !important; }
+  h1 { font-size:40px !important; line-height:1.06 !important; }
+  h2 { font-size:25px !important; }
+  .eyebrow, .brandimg + .eyebrow { font-family:'Cinzel',Georgia,serif !important; font-weight:700 !important; font-size:11px !important; letter-spacing:.2em !important; text-transform:uppercase; }
+  .brandimg { display:block; height:46px; width:auto; margin:0 0 26px; }
+  .btn, button.btn, button[type=submit] { border-radius:3px !important; text-transform:uppercase; letter-spacing:.1em; font-size:13px !important; font-weight:700 !important; }
+  .price, .step, details, .banner, #waitlist, #waitlistDone, input, select, textarea { border-radius:5px !important; }
+  .price .amt, .amt { font-family:'Fraunces',Georgia,serif !important; font-weight:600 !important; font-size:56px !important; letter-spacing:-.03em; }
+  .banner { font-size:15px; }
+</style>
+</head>
+<body>
+<script>
+  /* ===== EDIT THESE ONLY ===== */
+  const CONFIG = {
+    status: "open",                 // "early" (early registration), "open" (public registration), or "closed" (waitlist only)
+    spotsLeft: 1,                   // out of 3 (set to 0 to switch to the waitlist)
+    startDate: "Monday, November 9",
+    registrationCloses: "Wednesday, November 4",
+    nextStart: "Monday, December 7",
+    price: 499,
+    referralPrice: 450,
+    weeks: 12,
+    email: "awwabfitness@gmail.com",
+    instagram: "@awwabidris",
+    referrers: { abubakr: "Abu Bakr", alazar: "Alazar" }   // valid referral links (?ref=abubakr)
+  };
+</script>
+<div class="wrap">
+  <img class="brandimg" src="logo-wordmark-light.png" alt="Awwab Fitness"><p class="eyebrow" style="display:none">Awwab Fitness</p>
+  <h1>Accountability<br>you can see.</h1>
+  <p class="lede">A 12-week coaching program with an app where you log your day and your coach sees it. Training, nutrition, check-ins, and someone who actually looks at your data.</p>
+
+  <div id="banner" class="banner"></div>
+
+  <div class="price" id="priceBox"></div>
+
+  <div class="row" id="applyRow">
+    <a class="btn" id="applyBtn" href="intake.html">Apply now</a>
+    <a class="btn alt" href="https://awwabidris21.github.io/awwab-fitness-app/?demo=1" target="_blank" rel="noopener">Try the demo</a>
+  </div>
+
+  <div id="waitlist">
+    <h2 style="margin-top:0">Join the waitlist</h2>
+    <p style="color:var(--slate);margin-top:0">Registration for this group is closed. Leave your details and I'll message you first when the <span id="nextStart"></span> group opens.</p>
+    <form id="waitForm" action="https://formspree.io/f/meaqkylp" method="POST">
+      <input type="hidden" name="Form Type" value="Waitlist">
+      <div class="field"><label for="wn">Full name</label><input type="text" id="wn" name="Full Name" required></div>
+      <div class="field"><label for="wp">Phone number</label><input type="tel" id="wp" name="Phone Number" required></div>
+      <div class="field"><label for="we">Email (optional)</label><input type="email" id="we" name="Email"></div>
+      <div class="field"><label for="wg">Main goal</label><select id="wg" name="Main Goal"><option>Weight loss</option><option>Weight gain</option><option>Recomp</option><option>Not sure yet</option></select></div>
+      <button class="btn" type="submit">Join the waitlist</button>
+    </form>
+  </div>
+  <div id="waitlistDone"><b>You're on the list.</b> I'll message you when the next group opens.</div>
+
+  <h2>What you get</h2>
+  <ul class="check">
+    <li><b>A 12-week plan built for you.</b> Training and nutrition around your goal, your schedule and your equipment.</li>
+    <li><b>The Awwab Fitness app.</b> Log food, workouts, weight, sleep and a daily check-in. Search foods, scan barcodes, track streaks.</li>
+    <li><b>A coach who sees it live.</b> I read your data, flag problems and reach out when it matters.</li>
+    <li><b>Daily text reminders</b> and direct messaging with me in the app.</li>
+    <li><b>Weekly adjustments</b> to your numbers based on your real progress.</li>
+  </ul>
+
+  <h2>How it works</h2>
+  <div class="steps">
+    <div class="step"><div><b>Apply</b><span>Fill out a short form so I can understand your goals.</span></div></div>
+    <div class="step"><div><b>Quick call</b><span>We talk for 15 to 20 minutes. I show you the app and answer your questions.</span></div></div>
+    <div class="step"><div><b>Pay and agree to the terms</b><span>Your spot is confirmed once payment is received. Payment details come after our call.</span></div></div>
+    <div class="step"><div><b>Start with the group</b><span id="startLine"></span> I set up your plan and your login first.</div></div>
+  </div>
+
+  <h2>See it first</h2>
+  <p>Tap through the real app with sample data, as a client and as the coach.</p>
+  <div class="row">
+    <a class="btn alt" href="https://awwabidris21.github.io/awwab-fitness-app/?demo=1" target="_blank" rel="noopener">Client app demo</a>
+    <a class="btn alt" href="https://awwabidris21.github.io/awwab-fitness-app/?demo=coach" target="_blank" rel="noopener">Coach view demo</a>
+  </div>
+
+  <h2>Questions</h2>
+  <details><summary>Who is this for?</summary><p>Anyone who wants to lose weight, gain weight or muscle, or recomp, and is willing to log honestly. You don't need to be experienced.</p></details>
+  <details><summary>Do I need a gym?</summary><p>Your training is built around what you have access to. Tell me your equipment on the form.</p></details>
+  <details><summary>What if I'm not sure it's for me?</summary><p>You can ask for a full refund within 7 days of your start date. See the <a href="terms.html">Terms</a>.</p></details>
+  <details><summary>How do I pay?</summary><p>After our call I'll send secure payment details (card, or Zelle). You pay once, at signup.</p></details>
+  <details><summary>Is my data private?</summary><p>Only you and I can see it. Photos are private and nothing of yours is ever posted without your written permission. See the <a href="privacy.html">Privacy Policy</a>.</p></details>
+  <details><summary>Why only 3 spots?</summary><p>So every client gets real attention, especially in the first month. A new group starts every month.</p></details>
+
+  <p class="fine">Questions? Message <span id="ig"></span> on Instagram or email <a id="mail"></a>. <a href="terms.html">Terms</a> &middot; <a href="privacy.html">Privacy</a>. Results vary and are not guaranteed. This is fitness coaching, not medical advice.</p>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const ref = (new URLSearchParams(location.search).get('ref') || '').toLowerCase();
+  const referrer = CONFIG.referrers[ref] || null;       // only known links get the referral price
+  const closed = CONFIG.status === 'closed' || CONFIG.spotsLeft <= 0;
+
+  // banner
+  const b = $('banner');
+  if (closed) { b.className = 'banner closed'; b.textContent = 'Registration is closed for this group. Join the waitlist for the ' + CONFIG.nextStart + ' start.'; }
+  else if (CONFIG.status === 'early') { b.className = 'banner early'; b.textContent = 'Early registration is open. First pick of ' + CONFIG.spotsLeft + ' spots. The program starts ' + CONFIG.startDate + '.'; }
+  else { b.textContent = CONFIG.spotsLeft + (CONFIG.spotsLeft === 1 ? ' spot' : ' spots') + ' left. Registration closes ' + CONFIG.registrationCloses + '. The program starts ' + CONFIG.startDate + '.'; }
+
+  // price
+  const amt = referrer ? CONFIG.referralPrice : CONFIG.price;
+  $('priceBox').innerHTML = (referrer ? '<div class="ref">You were invited by ' + referrer + '. Referral price applied.</div>' : '') +
+    '<div><span class="amt">$' + amt + '</span>' + (referrer ? '<span class="was">$' + CONFIG.price + '</span>' : '') + '</div>' +
+    '<div class="sub">for ' + CONFIG.weeks + ' weeks, paid once. About $' + Math.round(amt / CONFIG.weeks) + ' a week.</div>';
+
+  // apply button keeps the referral code
+  $('applyBtn').href = 'intake.html' + (referrer ? '?ref=' + encodeURIComponent(ref) : '');
+  $('startLine').textContent = 'Your 12 weeks begin ' + CONFIG.startDate + '.';
+  $('nextStart').textContent = CONFIG.nextStart;
+  $('ig').textContent = CONFIG.instagram; $('mail').textContent = CONFIG.email; $('mail').href = 'mailto:' + CONFIG.email;
+
+  if (closed) { $('applyBtn').style.display = 'none'; $('waitlist').style.display = 'block'; }
+
+  // waitlist submit
+  $('waitForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    try {
+      const r = await fetch(e.target.action, { method: 'POST', body: new FormData(e.target), headers: { Accept: 'application/json' } });
+      if (r.ok) { $('waitlist').style.display = 'none'; $('waitlistDone').style.display = 'block'; } else alert('Something went wrong. Please try again, or message me on Instagram.');
+    } catch (err) { alert('Something went wrong. Please try again, or message me on Instagram.'); }
+  });
+</script>
+</body>
+</html>
