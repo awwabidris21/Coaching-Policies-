@@ -56,10 +56,11 @@
   /* ===== EDIT THESE ONLY ===== */
   const CONFIG = {
     status: "open",                 // "early" (early registration), "open" (public registration), or "closed" (waitlist only)
-    spotsLeft: 1,                   // out of 3 (set to 0 to switch to the waitlist)
-    startDate: "Monday, November 9",
-    registrationCloses: "Wednesday, November 4",
-    nextStart: "Monday, December 7",
+    spotsLeft: 3,                   // out of 3 (set to 0 to switch to the waitlist). Not shown to visitors in "open" mode.
+    startDate: "Monday, December 7",   // the next group start, shown on the page
+    startISO: "2026-12-07",            // same day as above. Once this date passes, the page stops showing a date by itself.
+    registrationCloses: "",            // optional, e.g. "Wednesday, December 2". Leave empty to hide.
+    nextStart: "Monday, December 7",   // used by the waitlist text when status is "closed"
     price: 499,
     referralPrice: 450,
     weeks: 12,
@@ -149,12 +150,15 @@
   const ref = (new URLSearchParams(location.search).get('ref') || '').toLowerCase();
   const referrer = CONFIG.referrers[ref] || null;       // only known links get the referral price
   const closed = CONFIG.status === 'closed' || CONFIG.spotsLeft <= 0;
+  // once the start date has passed, don't show an old date
+  const stale = !!CONFIG.startISO && new Date(CONFIG.startISO + 'T23:59:59') < new Date();
 
   // banner
   const b = $('banner');
   if (closed) { b.className = 'banner closed'; b.textContent = 'Registration is closed for this group. Join the waitlist for the ' + CONFIG.nextStart + ' start.'; }
   else if (CONFIG.status === 'early') { b.className = 'banner early'; b.textContent = 'Early registration is open. First pick of ' + CONFIG.spotsLeft + ' spots. The program starts ' + CONFIG.startDate + '.'; }
-  else { b.textContent = CONFIG.spotsLeft + (CONFIG.spotsLeft === 1 ? ' spot' : ' spots') + ' left. Registration closes ' + CONFIG.registrationCloses + '. The program starts ' + CONFIG.startDate + '.'; }
+  else if (stale) { b.textContent = 'Groups are limited to 3 people. Message me on Instagram for the next start date.'; }
+  else { b.textContent = 'Next group starts ' + CONFIG.startDate + '. Limited to 3 spots per group.' + (CONFIG.registrationCloses ? ' Registration closes ' + CONFIG.registrationCloses + '.' : ''); }
 
   // price
   const amt = referrer ? CONFIG.referralPrice : CONFIG.price;
@@ -165,7 +169,7 @@
 
   // apply button keeps the referral code
   $('applyBtn').href = 'intake.html' + (referrer ? '?ref=' + encodeURIComponent(ref) : '');
-  $('startLine').textContent = 'Your 12 weeks begin ' + CONFIG.startDate + '.';
+  $('startLine').textContent = stale ? 'Your 12 weeks begin with the next group start.' : 'Your 12 weeks begin ' + CONFIG.startDate + '.';
   $('nextStart').textContent = CONFIG.nextStart;
   $('ig').textContent = CONFIG.instagram; $('mail').textContent = CONFIG.email; $('mail').href = 'mailto:' + CONFIG.email;
 
